@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 import { Todolist } from "./components/Todolist/Todolist";
 
@@ -19,48 +18,9 @@ export const App = () => {
 		{ id: 7, name: "work", isDone: false },
 	];
 
-	let [array, setArray] = useState<TasksType[]>(tasks);
-
-	const removeTask = (id: number) => {
-		setArray(
-			array.filter((t) => {
-				return t.id !== id;
-			})
-		);
-	};
-
-	const addTask = (nameTask: string) => {
-		!nameTask
-			? alert("Enter task name!")
-			: setArray([{ id: array.length + 1, name: nameTask, isDone: false }, ...array]);
-	};
-
-	const changeInputCheckboxStatus = (taskId: number, value: boolean) => {
-		setArray(array.map((el) => (el.id === taskId ? { ...el, isDone: value } : el)));
-		// console.log(array.map((el) => (el.id === taskId ? { ...el, isDone: value } : el)));
-	};
-
-	const filterChekedTask = (filterValue: boolean | null) => {
-		if (filterValue === true) {
-			setArray((array = [...array.filter((el) => el.isDone)]));
-		} else if (filterValue === false) {
-			setArray((array = [...tasks.filter((el) => !el.isDone)]));
-		} else {
-			setArray(tasks);
-		}
-		console.log(filterValue);
-	};
-
 	return (
 		<div className="App">
-			<Todolist
-				todolistTitle={"Tasks list:"}
-				array={array}
-				removeTask={removeTask}
-				addTask={addTask}
-				changeInputCheckboxStatus={changeInputCheckboxStatus}
-				filterChekedTask={filterChekedTask}
-			/>
+			<Todolist todolistTitle={"Tasks list:"} tasksArray={tasks} />
 		</div>
 	);
 };
