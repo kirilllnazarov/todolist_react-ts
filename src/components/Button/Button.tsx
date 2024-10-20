@@ -1,12 +1,7 @@
-type ButtonType = {
-	name: string;
-	buttonFilter: () => void;
-};
+import { ButtonHTMLAttributes } from "react";
 
-export const Button = ({ name, buttonFilter }: ButtonType) => {
-	const onClickHandler = () => {
-		buttonFilter();
-	};
+type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>;
 
-	return <button onClick={onClickHandler}>{name}</button>;
+export const Button = ({ title, onClick }: ButtonType) => {
+	return <button onClick={onClick}>{title}</button>;
 };

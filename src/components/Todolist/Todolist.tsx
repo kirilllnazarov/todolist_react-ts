@@ -1,7 +1,8 @@
 import { TasksType } from "../../App";
 import { Button } from "../Button/Button";
+import { Checkbox } from "../Inputs/Checkbox/Checkbox";
 import { Input } from "../Inputs/InputWithButton/Input";
-import { InputCheckbox } from "../Inputs/InputCheckbox/InputCheckbox";
+
 import { useState } from "react";
 
 type TodolistType = {
@@ -29,9 +30,8 @@ export const Todolist = ({ todolistTitle, tasksArray }: TodolistType) => {
 	};
 
 	// изменяем чекбокс по клику и сетаем в array
-	const changeInputCheckboxStatus = (taskId: number, value: boolean) => {
+	const changeCheckboxStatus = (taskId: number, value: boolean) => {
 		setArray(array.map((el) => (el.id === taskId ? { ...el, isDone: value } : el)));
-		// console.log(array.map((el) => (el.id === taskId ? { ...el, isDone: value } : el)));
 	};
 
 	// фильтруем таски по нажатию на кнопки
@@ -64,8 +64,10 @@ export const Todolist = ({ todolistTitle, tasksArray }: TodolistType) => {
 				{array.map((t) => {
 					return (
 						<li key={t.id}>
-							<InputCheckbox changeInputCheckboxStatus={changeInputCheckboxStatus} taskId={t.id} />
+							<Checkbox changeCheckboxStatus={changeCheckboxStatus} taskId={t.id} />
+
 							<span>{t.name}</span>
+
 							<button onClick={() => removeTask(t.id)}>✖️</button>
 						</li>
 					);
@@ -73,9 +75,9 @@ export const Todolist = ({ todolistTitle, tasksArray }: TodolistType) => {
 			</ul>
 
 			{/* кнопки для сортировки тудулиста */}
-			<Button name={"All"} buttonFilter={() => filterChekedTask(null)} />
-			<Button name={"Done"} buttonFilter={() => filterChekedTask(true)} />
-			<Button name={"Active"} buttonFilter={() => filterChekedTask(false)} />
+			<Button title={"All"} onClick={() => filterChekedTask(null)} />
+			<Button title={"Done"} onClick={() => filterChekedTask(true)} />
+			<Button title={"Active"} onClick={() => filterChekedTask(false)} />
 		</section>
 	);
 };
